@@ -2,7 +2,7 @@
 {
     internal class Master
     {
-        private List<Inhabitant> ListOfInhabitants { get; set; } = [];
+        private List<IPerson> ListOfInhabitants { get; set; } = [];
 
         public void Show()
         {
@@ -17,7 +17,7 @@
             for (int i = 0; i < 10; i++)
             {
                 Random random = new();
-                Inhabitant inhabitant = this.ListOfInhabitants[random.Next(this.ListOfInhabitants.Count)];
+                IPerson inhabitant = this.ListOfInhabitants[random.Next(this.ListOfInhabitants.Count)];
                 Console.WriteLine(inhabitant.Describe());
 
                 while (random.NextDouble() < 0.75)
@@ -35,11 +35,17 @@
             this.ListOfInhabitants.Add(new Inhabitant("Greenleaf", "m", "Brownleaf", "Goldendaisy", new Gardener()));
         }
 
-        public void ChangeRandomInhabitantRole(IRole role)
+        public void ChangeInhabitantRole(int inhabitantIndex, IRole role)
         {
-            Random random = new();
-            Inhabitant inhabitant = this.ListOfInhabitants[random.Next(this.ListOfInhabitants.Count)];
-            inhabitant.ChangeRole(role);
+            if (inhabitantIndex < 0 || inhabitantIndex >= this.ListOfInhabitants.Count)
+            {
+                Console.WriteLine("Incorrect index.");
+            }
+            else
+            {
+                IPerson inhabitant = this.ListOfInhabitants[inhabitantIndex];
+                inhabitant.ChangeRole(role);
+            }
         }
     }
 }

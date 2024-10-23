@@ -1,6 +1,6 @@
 namespace Zadanie2_SOLID
 {
-    class Inhabitant(string name, string gender, string fatherName, string motherName, IRole role): IPerson
+    class Inhabitant(string name, string gender, string fatherName, string motherName, IRole role) : IPerson
     {
         public string Name => name;
         public string Gender => gender;
@@ -27,9 +27,14 @@ namespace Zadanie2_SOLID
 
         public void ChangeRole(IRole role)
         {
-            if (this.Role.GetType() != role.GetType())
+            if (this.Role.GetType() == role.GetType())
+            {
+                Console.WriteLine("Inhabitant already has selected role.");
+            }
+            else
             {
                 this.Role = role;
+                Console.WriteLine("Successfully changed inhabitant role: " + this.Describe());
             }
         }
     }

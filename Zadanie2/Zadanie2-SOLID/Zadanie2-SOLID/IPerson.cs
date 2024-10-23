@@ -1,6 +1,6 @@
 ﻿namespace Zadanie2_SOLID
 {
-    interface IPerson: IDescribable
+    interface IPerson : IDescribable
     {
         string Name { get; }
         string Gender { get; }
