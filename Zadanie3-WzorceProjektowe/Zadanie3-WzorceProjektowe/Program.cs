@@ -12,10 +12,11 @@ restaurant.AddEmployee(cook1);
 restaurant.AddEmployee(cook2);
 restaurant.AddEmployee(waiter);
 
+DeliveryAddress address = new("A");
 
 restaurant.AddOrder(new Order());
+restaurant.AddOrder(new Order(address));
 restaurant.AddOrder(new Order());
-restaurant.AddOrder(new Order());
-restaurant.AddOrder(new Order());
+restaurant.AddOrder(new Order(address));
 
 
