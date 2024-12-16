@@ -19,4 +19,4 @@ restaurant.AddOrder(new Order(address));
 restaurant.AddOrder(new Order());
 restaurant.AddOrder(new Order(address));
 
-
+restaurant.StartWorking();

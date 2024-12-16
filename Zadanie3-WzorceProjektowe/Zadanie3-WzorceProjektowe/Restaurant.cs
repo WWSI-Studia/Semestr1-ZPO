@@ -1,4 +1,5 @@
-﻿using Zadanie3_WzorceProjektowe.Staff;
+﻿using Zadanie3_WzorceProjektowe.OrderHandlers;
+using Zadanie3_WzorceProjektowe.Staff;
 
 namespace Zadanie3_WzorceProjektowe
 {
@@ -8,7 +9,20 @@ namespace Zadanie3_WzorceProjektowe
         private readonly List<Waiter> _waiters = [];
         private readonly Queue<Order> _orders = [];
         private readonly List<Order> _completedOrders = [];
+        private readonly OrderHandler _orderHandler;
 
+        public Restaurant(IOrderHandler? externalOrderHandler = null)
+        {
+            NewOrderHandler newOrderHandler = new NewOrderHandler();
+            InKitchenOrderHandler inKitchenOrderHandler = new InKitchenOrderHandler();
+            PreparedOrderHandler preparedOrderHandler = new PreparedOrderHandler();
+
+            newOrderHandler.SetNext(inKitchenOrderHandler);
+            inKitchenOrderHandler.SetNext(preparedOrderHandler);
+            preparedOrderHandler.SetNext(externalOrderHandler);
+
+            _orderHandler = newOrderHandler;
+        }
 
         public void AddEmployee(Cook cook)
         {
@@ -43,5 +57,13 @@ namespace Zadanie3_WzorceProjektowe
             return _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
         }
 
+        public void StartWorking()
+        {
+            while (_orders.Count > 0)
+            {
+                Order order = _orders.Dequeue();
+                _orderHandler.Handle(order, this);
+            }
+        }
     }
 }
