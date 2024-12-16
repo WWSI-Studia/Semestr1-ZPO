@@ -4,20 +4,27 @@ namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     class InKitchenOrderHandler : OrderHandler
     {
-        public override Order? Handle(Order order, Restaurant restaurant)
+        public override async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
         {
             if (order.Status == OrderStatus.In_Kitchen)
             {
-                Cook? cook = restaurant.GetAvailableCook();
+                Cook? cook;
+                // Zapewniamy, żeby pracownik został zaznaczony jako zajęty i został przypisany tylko do 1 zadania.
+                lock (_lock)
+                {
+                    cook = restaurant.GetAvailableCook();
+                    cook?.MarkAsBusy();
+                }
+
                 if (cook != null)
                 {
-                    order = cook.ProcessOrder(order);
+                    order = await cook.ProcessOrderAsync(order);
                     order.Status = OrderStatus.Prepared;
                 }
             }
 
             // Zawsze przesyłamy zamówienie dalej do kolejnego handlera
-            return base.Handle(order, restaurant);
+            return await base.HandleAsync(order, restaurant);
         }
     }
 }

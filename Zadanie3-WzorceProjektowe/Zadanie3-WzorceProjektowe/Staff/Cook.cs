@@ -1,17 +1,14 @@
 ﻿namespace Zadanie3_WzorceProjektowe.Staff
 {
-    class Cook : Employee
+    class Cook(string name) : Employee(name)
     {
-        public override Order ProcessOrder(Order order)
+        public override async Task<Order> ProcessOrderAsync(Order order)
         {
-            IsBusy = true;
-            Console.WriteLine("Cook is preparing a meal");
+            Console.WriteLine($"Cook {_name} is preparing a meal: " + order.ToString());
 
-            // TODO czekanie
+            await Task.Delay(5000);
 
-
-            Console.WriteLine("Cook is available again");
-            IsBusy = false;
+            Console.WriteLine($"Cook {_name} is available again, after preparing: " + order.ToString());
 
             return order;
         }

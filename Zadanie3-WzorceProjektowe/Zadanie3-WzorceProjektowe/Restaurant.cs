@@ -54,15 +54,28 @@ namespace Zadanie3_WzorceProjektowe
 
         public Waiter? GetAvailableWaiter()
         {
-            return _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
+            Waiter? waiter = _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
+            return waiter;
         }
 
         public void StartWorking()
         {
-            while (_orders.Count > 0)
+            List<Task> tasks = [];
+
+            while (_orders.Count > 0 || tasks.Any(t => !t.IsCompleted))
             {
-                Order order = _orders.Dequeue();
-                _orderHandler.Handle(order, this);
+                for (int i = 0; i < _orders.Count; i++)
+                {
+                    Order order = _orders.Dequeue();
+                    Task task = _orderHandler.HandleAsync(order, this);
+                    tasks.Add(task);
+                }
+
+                // Usuwamy przetworzone stany zamówienia
+                tasks.RemoveAll(t => t.IsCompleted);
+
+                // Czekamy chwilę przed kolejną iteracją, aby pracownicy mogli skończyć swoje obecne zadania
+                Task.Delay(1000).Wait();
             }
         }
     }

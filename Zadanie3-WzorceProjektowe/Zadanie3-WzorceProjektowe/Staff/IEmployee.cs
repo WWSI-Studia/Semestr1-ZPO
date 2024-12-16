@@ -2,6 +2,6 @@
 {
     interface IEmployee
     {
-        public Order ProcessOrder(Order order);
+        public Task<Order> ProcessOrderAsync(Order order);
     }
 }

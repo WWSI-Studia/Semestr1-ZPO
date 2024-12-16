@@ -2,6 +2,7 @@
 {
     abstract class OrderHandler : IOrderHandler
     {
+        protected readonly object _lock = new();
         private IOrderHandler? _nextHandler;
 
         public IOrderHandler? SetNext(IOrderHandler? handler)
@@ -10,11 +11,11 @@
             return handler;
         }
 
-        public virtual Order? Handle(Order order, Restaurant restaurant)
+        public virtual async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
         {
             if (_nextHandler != null)
             {
-                return _nextHandler.Handle(order, restaurant);
+                return await _nextHandler.HandleAsync(order, restaurant);
             }
             else
             {

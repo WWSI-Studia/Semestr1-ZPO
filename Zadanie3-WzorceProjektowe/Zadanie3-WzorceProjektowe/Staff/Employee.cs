@@ -1,9 +1,14 @@
 ﻿namespace Zadanie3_WzorceProjektowe.Staff
 {
-    abstract class Employee : IEmployee
+    abstract class Employee(string name) : IEmployee
     {
-        public bool IsBusy { get; protected set; }
+        protected readonly string _name = name;
+        public bool IsBusy { get; private set; }
 
-        public abstract Order ProcessOrder(Order order);
+        public void MarkAsBusy() { IsBusy = true; }
+
+        public void MarkAsNotBusy() { IsBusy = false; }
+
+        public abstract Task<Order> ProcessOrderAsync(Order order);
     }
 }

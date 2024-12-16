@@ -4,17 +4,25 @@ namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     class PreparedOrderHandler : OrderHandler
     {
-        public override Order? Handle(Order order, Restaurant restaurant)
+        public override async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
         {
             if (order.Status == OrderStatus.Prepared && !order.IsDelivery)
             {
-                Waiter? waiter = restaurant.GetAvailableWaiter();
+                Waiter? waiter;
+                // Zapewniamy, żeby pracownik został zaznaczony jako zajęty i został przypisany tylko do 1 zadania.
+                lock (_lock)
+                {
+                    waiter = restaurant.GetAvailableWaiter();
+                    waiter?.MarkAsBusy();
+                }
+
+                await Task.Delay(3000);
+
                 if (waiter != null)
                 {
-                    Order processedOrder = waiter.ProcessOrder(order);
+                    Order processedOrder = await waiter.ProcessOrderAsync(order);
 
                     order.Status = OrderStatus.Completed;
-                    //restaurant.AddOrder(processedOrder);
                 }
             }
             else if (order.Status == OrderStatus.Prepared)
@@ -23,7 +31,7 @@ namespace Zadanie3_WzorceProjektowe.OrderHandlers
             }
 
             // Zawsze przesyłamy zamówienie dalej do kolejnego handlera
-            return base.Handle(order, restaurant);
+            return await base.HandleAsync(order, restaurant);
         }
     }
 }

@@ -3,6 +3,6 @@
     interface IOrderHandler
     {
         IOrderHandler? SetNext(IOrderHandler? order);
-        Order? Handle(Order order, Restaurant restaurant);
+        Task<Order?> HandleAsync(Order order, Restaurant restaurant);
     }
 }
