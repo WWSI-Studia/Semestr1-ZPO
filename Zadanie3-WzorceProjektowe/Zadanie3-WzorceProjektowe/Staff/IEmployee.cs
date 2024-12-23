@@ -1,7 +1,9 @@
-﻿namespace Zadanie3_WzorceProjektowe.Staff
+﻿using Zadanie3_WzorceProjektowe.Orders;
+
+namespace Zadanie3_WzorceProjektowe.Staff
 {
     interface IEmployee
     {
-        public Task<Order> ProcessOrderAsync(Order order);
+        public Task<IOrder> ProcessOrderAsync(IOrder order);
     }
 }

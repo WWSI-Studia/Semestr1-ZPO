@@ -1,12 +1,13 @@
-﻿using Zadanie3_WzorceProjektowe.Staff;
+﻿using Zadanie3_WzorceProjektowe.Orders;
+using Zadanie3_WzorceProjektowe.Staff;
 
 namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     class InKitchenOrderHandler : OrderHandler
     {
-        public override async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
+        public override async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {
-            if (order.Status == OrderStatus.In_Kitchen)
+            if (order.GetOrderStatus() == OrderStatus.In_Kitchen)
             {
                 Cook? cook;
                 // Zapewniamy, żeby pracownik został zaznaczony jako zajęty i został przypisany tylko do 1 zadania.
@@ -19,7 +20,7 @@ namespace Zadanie3_WzorceProjektowe.OrderHandlers
                 if (cook != null)
                 {
                     order = await cook.ProcessOrderAsync(order);
-                    order.Status = OrderStatus.Prepared;
+                    order.SetOrderStatus(OrderStatus.Prepared);
                 }
             }
 

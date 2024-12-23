@@ -5,5 +5,6 @@ namespace Zadanie3_WzorceProjektowe.Meals
         public string? MainCourse { get; set; }
         public string? FirstSideDish { get; set; }
         public string? SecondSideDish { get; set; }
+        public double Price { get; set; }
     }
 }

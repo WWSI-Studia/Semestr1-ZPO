@@ -1,4 +1,4 @@
-﻿namespace Zadanie3_WzorceProjektowe
+﻿namespace Zadanie3_WzorceProjektowe.Orders
 {
     enum OrderStatus
     {

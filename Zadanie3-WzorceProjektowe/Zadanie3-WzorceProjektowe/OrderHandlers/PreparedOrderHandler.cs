@@ -1,12 +1,13 @@
-﻿using Zadanie3_WzorceProjektowe.Staff;
+﻿using Zadanie3_WzorceProjektowe.Orders;
+using Zadanie3_WzorceProjektowe.Staff;
 
 namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     class PreparedOrderHandler : OrderHandler
     {
-        public override async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
+        public override async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {
-            if (order.Status == OrderStatus.Prepared && !order.IsDelivery)
+            if (order.GetOrderStatus() == OrderStatus.Prepared && !order.IsDelivery)
             {
                 Waiter? waiter;
                 // Zapewniamy, żeby pracownik został zaznaczony jako zajęty i został przypisany tylko do 1 zadania.
@@ -20,14 +21,14 @@ namespace Zadanie3_WzorceProjektowe.OrderHandlers
 
                 if (waiter != null)
                 {
-                    Order processedOrder = await waiter.ProcessOrderAsync(order);
+                    IOrder processedOrder = await waiter.ProcessOrderAsync(order);
 
-                    order.Status = OrderStatus.Completed;
+                    order.SetOrderStatus(OrderStatus.Completed);
                 }
             }
-            else if (order.Status == OrderStatus.Prepared)
+            else if (order.GetOrderStatus() == OrderStatus.Prepared)
             {
-                order.Status = OrderStatus.In_Delivery;
+                order.SetOrderStatus(OrderStatus.In_Delivery);
             }
 
             // Zawsze przesyłamy zamówienie dalej do kolejnego handlera

@@ -1,8 +1,10 @@
-﻿namespace Zadanie3_WzorceProjektowe.OrderHandlers
+﻿using Zadanie3_WzorceProjektowe.Orders;
+
+namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     interface IOrderHandler
     {
         IOrderHandler? SetNext(IOrderHandler? order);
-        Task<Order?> HandleAsync(Order order, Restaurant restaurant);
+        Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant);
     }
 }

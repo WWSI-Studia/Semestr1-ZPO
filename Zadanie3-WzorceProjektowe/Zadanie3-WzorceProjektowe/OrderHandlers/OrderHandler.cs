@@ -1,4 +1,6 @@
-﻿namespace Zadanie3_WzorceProjektowe.OrderHandlers
+﻿using Zadanie3_WzorceProjektowe.Orders;
+
+namespace Zadanie3_WzorceProjektowe.OrderHandlers
 {
     abstract class OrderHandler : IOrderHandler
     {
@@ -11,7 +13,7 @@
             return handler;
         }
 
-        public virtual async Task<Order?> HandleAsync(Order order, Restaurant restaurant)
+        public virtual async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {
             if (_nextHandler != null)
             {

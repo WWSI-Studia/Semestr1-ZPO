@@ -1,4 +1,5 @@
 ﻿using Zadanie3_WzorceProjektowe.OrderHandlers;
+using Zadanie3_WzorceProjektowe.Orders;
 using Zadanie3_WzorceProjektowe.Staff;
 
 namespace Zadanie3_WzorceProjektowe
@@ -7,8 +8,8 @@ namespace Zadanie3_WzorceProjektowe
     {
         private readonly List<Cook> _cooks = [];
         private readonly List<Waiter> _waiters = [];
-        private readonly Queue<Order> _orders = [];
-        private readonly List<Order> _completedOrders = [];
+        private readonly Queue<IOrder> _orders = [];
+        private readonly List<IOrder> _completedOrders = [];
         private readonly OrderHandler _orderHandler;
 
         public Restaurant(IOrderHandler? externalOrderHandler = null)
@@ -34,9 +35,9 @@ namespace Zadanie3_WzorceProjektowe
             _waiters.Add(waiter);
         }
 
-        public void AddOrder(Order order)
+        public void AddOrder(IOrder order)
         {
-            if (order.Status == OrderStatus.Completed)
+            if (order.GetOrderStatus() == OrderStatus.Completed)
             {
                 _completedOrders.Add(order);
             }
@@ -66,7 +67,7 @@ namespace Zadanie3_WzorceProjektowe
             {
                 for (int i = 0; i < _orders.Count; i++)
                 {
-                    Order order = _orders.Dequeue();
+                    IOrder order = _orders.Dequeue();
                     Task task = _orderHandler.HandleAsync(order, this);
                     tasks.Add(task);
                 }
