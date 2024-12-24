@@ -1,19 +1,21 @@
 ﻿using RestaurantManagment.Meals;
+using System.Text;
 
 namespace RestaurantManagment.Orders
 {
     class Order : IOrder
     {
-        private readonly string _name;
-        private readonly List<Meal> _meals = [];
+        private readonly List<Meal> _meals;
         private double _deliveryCost;
         private OrderStatus _status;
+        public string Name { get; }
         public bool IsDelivery { get; }
         public DeliveryAddress? DeliveryAddress { get; }
 
-        public Order(string name, DeliveryAddress? deliveryAddress = null)
+        public Order(string name, List<Meal> meals, DeliveryAddress? deliveryAddress = null)
         {
-            _name = name;
+            Name = name;
+            _meals = meals;
             _status = OrderStatus.New;
 
             if (deliveryAddress != null)
@@ -68,7 +70,14 @@ namespace RestaurantManagment.Orders
 
         public override string ToString()
         {
-            return "Order " + _name;
+            StringBuilder stringBuilder = new($"Order {Name} {GetTotalCost()}PLN");
+
+            foreach (Meal meal in _meals)
+            {
+                stringBuilder.Append($"\n - {meal.ToString()}");
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

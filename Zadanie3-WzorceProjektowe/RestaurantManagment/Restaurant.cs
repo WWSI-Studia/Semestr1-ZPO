@@ -40,11 +40,18 @@ namespace RestaurantManagment
         public void AddEmployee(Cook cook)
         {
             _cooks.Add(cook);
+            LogAddedEmployee(cook);
         }
 
         public void AddEmployee(Waiter waiter)
         {
             _waiters.Add(waiter);
+            LogAddedEmployee(waiter);
+        }
+
+        private static void LogAddedEmployee(IEmployee employee)
+        {
+            Console.WriteLine(employee.ToString() + " came to work.");
         }
 
         public void AddOrder(IOrder order)

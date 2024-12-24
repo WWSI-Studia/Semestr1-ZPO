@@ -13,7 +13,18 @@ namespace RestaurantManagment.Meals.MealBuilder
             burgerMealBuilder = new BurgerMealBuilder();
         }
 
-        public Meal CreateStandardMeal(
+        public Meal CreateDefaultStandardMeal(
+        )
+        {
+            _standardMealbuilder.Reset();
+            _standardMealbuilder.SetMainCourse(StandardMainCourseOptions.Porkchop);
+            _standardMealbuilder.SetFirstSideDish(StandardFirstSideDishOptions.Potatoes);
+            _standardMealbuilder.SetSecondSideDish(StandardSecondSideDishOptions.Salad);
+
+            return _standardMealbuilder.Build();
+        }
+
+        public Meal CreateCustomStandardMeal(
             StandardMainCourseOptions mainCourse,
             StandardFirstSideDishOptions? firstSideDish,
             StandardSecondSideDishOptions? secondSideDish
@@ -27,7 +38,17 @@ namespace RestaurantManagment.Meals.MealBuilder
             return _standardMealbuilder.Build();
         }
 
-        public Meal CreateBurgerMeal(
+        public Meal CreateDefaultBurgerMeal()
+        {
+            _standardMealbuilder.Reset();
+            _standardMealbuilder.SetMainCourse(BurgerMainCourseOptions.Standard);
+            _standardMealbuilder.SetFirstSideDish(BurgerFirstSideDishOptions.Fries);
+            _standardMealbuilder.SetSecondSideDish(BurgerSecondSideDishOptions.Salad);
+
+            return _standardMealbuilder.Build();
+        }
+
+        public Meal CreateCustomBurgerMeal(
             BurgerMainCourseOptions mainCourse,
             BurgerFirstSideDishOptions? firstSideDish,
             BurgerSecondSideDishOptions? secondSideDish

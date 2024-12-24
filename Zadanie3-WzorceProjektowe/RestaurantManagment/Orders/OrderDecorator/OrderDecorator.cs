@@ -5,6 +5,7 @@ namespace RestaurantManagment.Orders.OrderDecorator
     abstract class OrderDecorator(IOrder order) : IOrder
     {
         private readonly IOrder _order = order;
+        public string Name { get => _order.Name; }
         public bool IsDelivery { get => _order.IsDelivery; }
 
         public void AddMeal(Meal meal)

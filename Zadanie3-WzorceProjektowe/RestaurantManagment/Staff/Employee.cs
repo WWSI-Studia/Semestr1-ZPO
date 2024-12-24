@@ -12,5 +12,10 @@ namespace RestaurantManagment.Staff
         public void MarkAsNotBusy() { IsBusy = false; }
 
         public abstract Task<IOrder> ProcessOrderAsync(IOrder order);
+
+        public override string ToString()
+        {
+            return $"Employee {_name}";
+        }
     }
 }

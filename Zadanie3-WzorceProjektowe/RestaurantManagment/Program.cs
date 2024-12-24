@@ -1,4 +1,6 @@
 ﻿using RestaurantManagment;
+using RestaurantManagment.Meals;
+using RestaurantManagment.Meals.MealBuilder;
 using RestaurantManagment.Orders;
 using RestaurantManagment.Orders.OrderDecorator;
 using RestaurantManagment.Staff;
@@ -17,7 +19,7 @@ namespace OrderProcessing
 
             foreach (var employee in employees)
             {
-                Console.WriteLine(employee + "\n");
+                Console.WriteLine(employee);
             }
 
             return employees;
@@ -33,7 +35,7 @@ namespace OrderProcessing
 
             foreach (var employee in employees)
             {
-                Console.WriteLine(employee + "\n");
+                Console.WriteLine(employee);
             }
 
             return employees;
@@ -42,12 +44,27 @@ namespace OrderProcessing
         private static IOrder[] PrepareOrders()
         {
             DeliveryAddress address = new("Warszawa");
+            MealDirector director = new MealDirector();
+
+            List<Meal> meals1 = [
+                    director.CreateDefaultStandardMeal(),
+                    director.CreateDefaultBurgerMeal()
+                ];
+
+            Console.WriteLine(meals1);
+            Console.WriteLine(meals1[0]);
+            Console.WriteLine(meals1);
+
+            IOrder order1 = new Order("Mielony", meals1);
+            IOrder order2 = new FreeDeliveryDiscountOrderDecorator(new Order("Schabowy", meals1, address));
+            IOrder order3 = new CashAmountDiscountOrderDecorator(new Order("Kurczak", meals1), 10);
+            IOrder order4 = new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Sałatka", meals1, address), 50), 10);
 
             IOrder[] orders = [
-                    new Order("Mielony"),
-                    new FreeDeliveryDiscountOrderDecorator(new Order("Schabowy", address)),
-                    new CashAmountDiscountOrderDecorator(new Order("Kurczak"), 10),
-                    new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Sałatka", address), 50), 10),
+                    order1,
+                    order2,
+                    order3,
+                    order4,
                 ];
 
             foreach (var order in orders)
