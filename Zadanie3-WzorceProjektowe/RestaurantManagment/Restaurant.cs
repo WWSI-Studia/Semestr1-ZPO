@@ -6,23 +6,35 @@ namespace RestaurantManagment
 {
     class Restaurant
     {
+        private static Restaurant? _restaurant;
         private readonly List<Cook> _cooks = [];
         private readonly List<Waiter> _waiters = [];
         private readonly Queue<IOrder> _orders = [];
         private readonly List<IOrder> _completedOrders = [];
         private readonly OrderHandler _orderHandler;
 
-        public Restaurant(IOrderHandler? externalOrderHandler = null)
+        private Restaurant(IOrderHandler? externalOrderHandler = null)
         {
-            NewOrderHandler newOrderHandler = new NewOrderHandler();
-            InKitchenOrderHandler inKitchenOrderHandler = new InKitchenOrderHandler();
-            PreparedOrderHandler preparedOrderHandler = new PreparedOrderHandler();
+            NewOrderHandler newOrderHandler = new();
+            InKitchenOrderHandler inKitchenOrderHandler = new();
+            PreparedOrderHandler preparedOrderHandler = new();
 
             newOrderHandler.SetNext(inKitchenOrderHandler);
             inKitchenOrderHandler.SetNext(preparedOrderHandler);
             preparedOrderHandler.SetNext(externalOrderHandler);
 
             _orderHandler = newOrderHandler;
+            _restaurant = this;
+        }
+
+        public static Restaurant GetInstance(IOrderHandler? externalOrderHandler = null)
+        {
+            if (_restaurant != null)
+            {
+                return _restaurant;
+            }
+
+            return new Restaurant(externalOrderHandler);
         }
 
         public void AddEmployee(Cook cook)

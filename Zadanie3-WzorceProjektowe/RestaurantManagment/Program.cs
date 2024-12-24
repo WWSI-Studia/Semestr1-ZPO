@@ -71,7 +71,7 @@ namespace OrderProcessing
             IOrder[] orders = PrepareOrders();
 
             Console.WriteLine("-------------CREATING_RESTAURANT----------------------");
-            Restaurant restaurant = new();
+            Restaurant restaurant = Restaurant.GetInstance();
 
             foreach (var cook in cooks)
             {
