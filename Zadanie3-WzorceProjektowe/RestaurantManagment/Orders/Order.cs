@@ -62,19 +62,24 @@ namespace RestaurantManagment.Orders
 
             foreach (Meal meal in _meals)
             {
-                cost += meal.Price;
+                cost += meal.GetTotalCost();
             }
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new($"Order {Name} {GetTotalCost()}PLN");
+            StringBuilder stringBuilder = new($"Order {Name} {GetTotalCost()}PLN\n");
 
             foreach (Meal meal in _meals)
             {
-                stringBuilder.Append($"\n - {meal.ToString()}");
+                stringBuilder.Append($" - {meal.ToString()}\n");
+            }
+
+            if (DeliveryAddress != null)
+            {
+                stringBuilder.Append($" - Delivery {DeliveryAddress.Price}PLN\n");
             }
 
             return stringBuilder.ToString();
