@@ -9,7 +9,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + $"\nA discount for free delivery was used - cost after discount: {GetTotalCost()}";
+            return base.ToString() + $"A discount for free delivery was used - cost after discount: {GetTotalCost()}\n";
         }
     }
 }

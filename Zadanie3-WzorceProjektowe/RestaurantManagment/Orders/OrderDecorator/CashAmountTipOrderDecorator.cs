@@ -19,7 +19,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + $"\nA discount was used for the amount of {_amount}PLN - cost after discount: {GetTotalCost()}";
+            return base.ToString() + $"A discount was used for the amount of {_amount}PLN - cost after discount: {GetTotalCost()}\n";
         }
     }
 }

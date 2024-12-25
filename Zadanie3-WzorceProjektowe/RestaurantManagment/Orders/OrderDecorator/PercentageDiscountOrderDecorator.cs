@@ -31,7 +31,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + $"\nA discount was used for the {_percent}% - cost after discount: {GetTotalCost()}";
+            return base.ToString() + $"A discount was used for the {_percent}% - cost after discount: {GetTotalCost()}\n";
         }
     }
 }

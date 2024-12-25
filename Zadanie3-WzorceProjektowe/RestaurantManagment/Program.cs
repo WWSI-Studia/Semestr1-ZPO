@@ -1,6 +1,6 @@
 ﻿using RestaurantManagment;
 using RestaurantManagment.Meals;
-using RestaurantManagment.Meals.MealBuilder;
+using RestaurantManagment.Meals.MealBuilders;
 using RestaurantManagment.Orders;
 using RestaurantManagment.Orders.OrderDecorator;
 using RestaurantManagment.Staff;
@@ -43,22 +43,34 @@ namespace OrderProcessing
 
         private static IOrder[] PrepareOrders()
         {
-            DeliveryAddress address = new("Warszawa");
-            MealDirector director = new MealDirector();
+            MealDirector director = new();
 
             List<Meal> meals1 = [
                     director.CreateDefaultStandardMeal(),
                     director.CreateDefaultBurgerMeal()
                 ];
 
-            Console.WriteLine(meals1);
-            Console.WriteLine(meals1[0]);
-            Console.WriteLine(meals1);
+            List<Meal> meals2 = [
+                    director.CreateDefaultStandardMeal(),
+                    director.CreateDefaultBurgerMeal()
+                ];
 
-            IOrder order1 = new Order("Mielony", meals1);
-            IOrder order2 = new FreeDeliveryDiscountOrderDecorator(new Order("Schabowy", meals1, address));
-            IOrder order3 = new CashAmountDiscountOrderDecorator(new Order("Kurczak", meals1), 10);
-            IOrder order4 = new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Sałatka", meals1, address), 50), 10);
+            List<Meal> meals3 = [
+                    director.CreateDefaultStandardMeal(),
+                    director.CreateDefaultBurgerMeal()
+                ];
+            List<Meal> meals4 = [
+                    director.CreateDefaultStandardMeal(),
+                    director.CreateDefaultBurgerMeal()
+                ];
+
+            DeliveryAddress address1 = new("Warszawa", 10);
+            DeliveryAddress address2 = new("Wrocław", 7.77);
+
+            IOrder order1 = new Order("First", meals1);
+            IOrder order2 = new FreeDeliveryDiscountOrderDecorator(new Order("Second", meals2, address1));
+            IOrder order3 = new CashAmountDiscountOrderDecorator(new Order("Third", meals3), 10);
+            IOrder order4 = new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Fourth", meals4, address2), 50), 10);
 
             IOrder[] orders = [
                     order1,
@@ -69,7 +81,7 @@ namespace OrderProcessing
 
             foreach (var order in orders)
             {
-                Console.WriteLine(order + "\n");
+                Console.WriteLine(order);
             }
 
             return orders;

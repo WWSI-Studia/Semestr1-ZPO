@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + $"\nA tip was added for the amount of {_amount}PLN - cost after tip: {GetTotalCost()}";
+            return base.ToString() + $"A tip was added for the amount of {_amount}PLN - cost after tip: {GetTotalCost()}\n";
         }
     }
 }
