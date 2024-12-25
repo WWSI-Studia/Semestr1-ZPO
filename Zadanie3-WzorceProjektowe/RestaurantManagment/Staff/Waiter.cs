@@ -6,12 +6,23 @@ namespace RestaurantManagment.Staff
     {
         public override async Task<IOrder> ProcessOrderAsync(IOrder order)
         {
-            // TODO w zależności czy przyjmuje czy zanosi
-            Console.WriteLine($"Waiter {_name} passes order to the kitchen: " + order.Name);
+            // W zależności czy obsługuje nowe zamówienie, czy przygotowane przez kucharza.
+            if (order.GetOrderStatus() == OrderStatus.New)
+            {
+                Console.WriteLine($"Waiter {_name} passes order to the kitchen: " + order.Name);
 
-            await Task.Delay(3000);
+                await Task.Delay(1000);
 
-            Console.WriteLine($"Waiter {_name} is available again, after managing: " + order.Name);
+                Console.WriteLine($"Waiter {_name} is available again, after managing order: " + order.Name);
+            }
+            else
+            {
+                Console.WriteLine($"Waiter {_name} prepares ready order: " + order.Name);
+
+                await Task.Delay(2000);
+
+                Console.WriteLine($"Waiter {_name} is available again, after managing order: " + order.Name);
+            }
 
             return order;
         }

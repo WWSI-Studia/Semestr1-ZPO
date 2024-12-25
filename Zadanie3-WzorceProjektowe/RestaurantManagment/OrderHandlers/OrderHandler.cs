@@ -22,6 +22,7 @@ namespace RestaurantManagment.OrderHandlers
             else
             {
                 // Dodajemy zamówienie kolejny raz do kolejki, aby wykonać kolejny krok jego przetwarzania.
+                // Ukończone zamówienie trafi do listy ukończonych zamówień
                 restaurant.AddOrder(order);
 
                 return order;

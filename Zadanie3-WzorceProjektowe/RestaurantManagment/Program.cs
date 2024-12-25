@@ -41,6 +41,21 @@ namespace OrderProcessing
             return employees;
         }
 
+        private static Deliveryman[] PrepareDeliverymans()
+        {
+            Deliveryman[] employees =
+            [
+                new Deliveryman("Rafał"),
+            ];
+
+            foreach (var employee in employees)
+            {
+                Console.WriteLine(employee);
+            }
+
+            return employees;
+        }
+
         private static IOrder[] PrepareOrders()
         {
             MealDirector director = new();
@@ -92,14 +107,15 @@ namespace OrderProcessing
         static void Main(string[] args)
         {
 
-            Console.WriteLine("-------------CREATING_EMPLOYEES----------------------");
+            Console.WriteLine("-------------CREATING_EMPLOYEES---------------------");
             Cook[] cooks = PrepareCooks();
             Waiter[] waiters = PrepareWaiters();
+            Deliveryman[] deliverymans = PrepareDeliverymans();
 
-            Console.WriteLine("-------------CREATING_ORDERS----------------------");
+            Console.WriteLine("-------------CREATING_ORDERS------------------------");
             IOrder[] orders = PrepareOrders();
 
-            Console.WriteLine("-------------CREATING_RESTAURANT----------------------");
+            Console.WriteLine("-------------CREATING_RESTAURANT--------------------");
             Restaurant restaurant = Restaurant.GetInstance();
 
             foreach (var cook in cooks)
@@ -112,6 +128,11 @@ namespace OrderProcessing
                 restaurant.AddEmployee(waiter);
             }
 
+            foreach (var deliveryman in deliverymans)
+            {
+                restaurant.AddEmployee(deliveryman);
+            }
+
             foreach (var order in orders)
             {
                 restaurant.AddOrder(order);
@@ -119,6 +140,9 @@ namespace OrderProcessing
 
             Console.WriteLine("-------------PROCESSING_ORDERS----------------------");
             restaurant.StartWorking();
+
+            Console.WriteLine("-------------LISTING_COMPLETED_ORDERS---------------");
+            // TODO
         }
     }
 }

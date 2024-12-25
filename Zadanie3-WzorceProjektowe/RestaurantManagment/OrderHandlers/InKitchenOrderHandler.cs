@@ -21,6 +21,8 @@ namespace RestaurantManagment.OrderHandlers
                 {
                     order = await cook.ProcessOrderAsync(order);
                     order.SetOrderStatus(OrderStatus.Prepared);
+
+                    cook.MarkAsNotBusy();
                 }
             }
 

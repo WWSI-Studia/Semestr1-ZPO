@@ -2,22 +2,22 @@
 
 namespace RestaurantManagment.Staff
 {
-    class Cook(string name) : Employee(name)
+    class Deliveryman(string name) : Employee(name)
     {
         public override async Task<IOrder> ProcessOrderAsync(IOrder order)
         {
-            Console.WriteLine($"Cook {_name} is preparing a meal: " + order.Name);
+            Console.WriteLine($"Deliveryman {_name} delivers order to customer: " + order.Name);
 
             await Task.Delay(3000);
 
-            Console.WriteLine($"Cook {_name} is available again, after preparing: " + order.Name);
+            Console.WriteLine($"Deliveryman {_name} is available again, after delivering order: " + order.Name);
 
             return order;
         }
 
         public override string ToString()
         {
-            return $"Cook {_name}";
+            return $"Deliveryman {_name}";
         }
     }
 }

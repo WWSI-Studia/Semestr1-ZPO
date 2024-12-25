@@ -9,6 +9,7 @@ namespace RestaurantManagment
         private static Restaurant? _restaurant;
         private readonly List<Cook> _cooks = [];
         private readonly List<Waiter> _waiters = [];
+        private readonly List<Deliveryman> _deliverymans = [];
         private readonly Queue<IOrder> _orders = [];
         private readonly List<IOrder> _completedOrders = [];
         private readonly OrderHandler _orderHandler;
@@ -18,10 +19,12 @@ namespace RestaurantManagment
             NewOrderHandler newOrderHandler = new();
             InKitchenOrderHandler inKitchenOrderHandler = new();
             PreparedOrderHandler preparedOrderHandler = new();
+            InDeliveryOrderHandler inDeliveryOrderHandler = new();
 
             newOrderHandler.SetNext(inKitchenOrderHandler);
             inKitchenOrderHandler.SetNext(preparedOrderHandler);
-            preparedOrderHandler.SetNext(externalOrderHandler);
+            preparedOrderHandler.SetNext(inDeliveryOrderHandler);
+            inDeliveryOrderHandler.SetNext(externalOrderHandler);
 
             _orderHandler = newOrderHandler;
             _restaurant = this;
@@ -49,6 +52,12 @@ namespace RestaurantManagment
             LogAddedEmployee(waiter);
         }
 
+        public void AddEmployee(Deliveryman deliveryman)
+        {
+            _deliverymans.Add(deliveryman);
+            LogAddedEmployee(deliveryman);
+        }
+
         private static void LogAddedEmployee(IEmployee employee)
         {
             Console.WriteLine(employee.ToString() + " came to work.");
@@ -58,6 +67,7 @@ namespace RestaurantManagment
         {
             if (order.GetOrderStatus() == OrderStatus.Completed)
             {
+                Console.WriteLine($"Order {order.Name} is completed!");
                 _completedOrders.Add(order);
             }
             else
@@ -74,8 +84,12 @@ namespace RestaurantManagment
 
         public Waiter? GetAvailableWaiter()
         {
-            Waiter? waiter = _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
-            return waiter;
+            return _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
+        }
+
+        public Deliveryman? GetAvailableDeliveryman()
+        {
+            return _deliverymans.FirstOrDefault(deliveryman => !deliveryman.IsBusy);
         }
 
         public void StartWorking()
@@ -97,6 +111,8 @@ namespace RestaurantManagment
                 // Czekamy chwilę przed kolejną iteracją, aby pracownicy mogli skończyć swoje obecne zadania
                 Task.Delay(1000).Wait();
             }
+
+            Console.WriteLine("All orders have been completed!");
         }
     }
 }
