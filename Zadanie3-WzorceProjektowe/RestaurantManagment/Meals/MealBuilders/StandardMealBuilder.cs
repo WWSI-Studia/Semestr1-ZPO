@@ -1,7 +1,8 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    class StandardMealBuilder : MealBuilder<StandardMainCourseOption, StandardFirstSideDishOption, StandardSecondSideDishOption>
+    class StandardMealBuilder : IMealBuilder<StandardMainCourseOption, StandardFirstSideDishOption, StandardSecondSideDishOption>
     {
+        private StandardMeal _standardMeal = new();
         private readonly Dictionary<Enum, double> MealItemPrices = new()
         {
             { StandardMainCourseOption.Porkchop, 18 },
@@ -11,7 +12,33 @@
             { StandardSecondSideDishOption.Salad, 5.50 },
         };
 
-        public override void SetMainCourse(StandardMainCourseOption mainCourse = StandardMainCourseOption.Porkchop)
+        public void Reset()
+        {
+            _standardMeal = new();
+        }
+
+        public Meal Build()
+        {
+            return _standardMeal;
+        }
+
+        public void SetDefaultMeal()
+        {
+            StandardMainCourseOption mainCourse = StandardMainCourseOption.Porkchop;
+            StandardFirstSideDishOption firstSideDish = StandardFirstSideDishOption.Potatoes;
+            StandardSecondSideDishOption secondSideDish = StandardSecondSideDishOption.Salad;
+
+            double mainCoursePrice = MealItemPrices.GetValueOrDefault(mainCourse, 20);
+            double firstSideDishPrice = MealItemPrices.GetValueOrDefault(firstSideDish, 20);
+            double secondSideDishPrice = MealItemPrices.GetValueOrDefault(secondSideDish, 20);
+
+            _standardMeal.SetMainCourse(mainCourse, mainCoursePrice);
+            _standardMeal.SetFirstSideDish(firstSideDish, firstSideDishPrice);
+            _standardMeal.SetSecondSideDish(secondSideDish, secondSideDishPrice);
+        }
+
+
+        public void SetMainCourse(StandardMainCourseOption mainCourse = StandardMainCourseOption.Porkchop)
         {
             if (!MealItemPrices.TryGetValue(mainCourse, out double price))
             {
@@ -19,10 +46,10 @@
                 price = MealItemPrices.GetValueOrDefault(mainCourse, 20);
             }
 
-            meal.MainCourse = new MealItem(mainCourse.ToString(), price);
+            _standardMeal.SetMainCourse(mainCourse, price);
         }
 
-        public override void SetFirstSideDish(StandardFirstSideDishOption firstSideDish = StandardFirstSideDishOption.Potatoes)
+        public void SetFirstSideDish(StandardFirstSideDishOption firstSideDish = StandardFirstSideDishOption.Potatoes)
         {
             if (!MealItemPrices.TryGetValue(firstSideDish, out double price))
             {
@@ -30,10 +57,10 @@
                 price = MealItemPrices.GetValueOrDefault(firstSideDish, 10);
             }
 
-            meal.FirstSideDish = new MealItem(firstSideDish.ToString(), price);
+            _standardMeal.SetFirstSideDish(firstSideDish, price);
         }
 
-        public override void SetSecondSideDish(StandardSecondSideDishOption secondSideDish = StandardSecondSideDishOption.Salad)
+        public void SetSecondSideDish(StandardSecondSideDishOption secondSideDish = StandardSecondSideDishOption.Salad)
         {
             if (!MealItemPrices.TryGetValue(secondSideDish, out double price))
             {
@@ -41,22 +68,7 @@
                 price = MealItemPrices.GetValueOrDefault(secondSideDish, 8);
             }
 
-            meal.SecondSideDish = new MealItem(secondSideDish.ToString(), price);
+            _standardMeal.SetSecondSideDish(secondSideDish, price);
         }
-    }
-
-    enum StandardMainCourseOption
-    {
-        Porkchop
-    }
-
-    enum StandardFirstSideDishOption
-    {
-        Potatoes
-    }
-
-    enum StandardSecondSideDishOption
-    {
-        Salad
     }
 }

@@ -1,7 +1,8 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    class BurgerMealBuilder : MealBuilder<BurgerMainCourseOption, BurgerFirstSideDishOption, BurgerSecondSideDishOption>
+    class BurgerMealBuilder : IMealBuilder<BurgerMainCourseOption, BurgerFirstSideDishOption, BurgerSecondSideDishOption>
     {
+        private BurgerMeal _burgerMeal = new();
         private readonly Dictionary<Enum, double> MealItemPrices = new()
         {
             { BurgerMainCourseOption.Standard, 16.99 },
@@ -11,7 +12,32 @@
             { BurgerSecondSideDishOption.Salad, 5.50 },
         };
 
-        public override void SetMainCourse(BurgerMainCourseOption mainCourse = BurgerMainCourseOption.Standard)
+        public void Reset()
+        {
+            _burgerMeal = new();
+        }
+
+        public Meal Build()
+        {
+            return _burgerMeal;
+        }
+
+        public void SetDefaultMeal()
+        {
+            BurgerMainCourseOption mainCourse = BurgerMainCourseOption.Standard;
+            BurgerFirstSideDishOption firstSideDish = BurgerFirstSideDishOption.Fries;
+            BurgerSecondSideDishOption secondSideDish = BurgerSecondSideDishOption.Salad;
+
+            double mainCoursePrice = MealItemPrices.GetValueOrDefault(mainCourse, 20);
+            double firstSideDishPrice = MealItemPrices.GetValueOrDefault(firstSideDish, 20);
+            double secondSideDishPrice = MealItemPrices.GetValueOrDefault(secondSideDish, 20);
+
+            _burgerMeal.SetMainCourse(mainCourse, mainCoursePrice);
+            _burgerMeal.SetFirstSideDish(firstSideDish, firstSideDishPrice);
+            _burgerMeal.SetSecondSideDish(secondSideDish, secondSideDishPrice);
+        }
+
+        public void SetMainCourse(BurgerMainCourseOption mainCourse = BurgerMainCourseOption.Standard)
         {
             if (!MealItemPrices.TryGetValue(mainCourse, out double price))
             {
@@ -19,10 +45,10 @@
                 price = MealItemPrices.GetValueOrDefault(mainCourse, 20);
             }
 
-            meal.MainCourse = new MealItem("Burger " + mainCourse.ToString(), price);
+            _burgerMeal.SetMainCourse(mainCourse, price);
         }
 
-        public override void SetFirstSideDish(BurgerFirstSideDishOption firstSideDish = BurgerFirstSideDishOption.Fries)
+        public void SetFirstSideDish(BurgerFirstSideDishOption firstSideDish = BurgerFirstSideDishOption.Fries)
         {
             if (!MealItemPrices.TryGetValue(firstSideDish, out double price))
             {
@@ -30,10 +56,10 @@
                 price = MealItemPrices.GetValueOrDefault(firstSideDish, 10);
             }
 
-            meal.FirstSideDish = new MealItem(firstSideDish.ToString(), price);
+            _burgerMeal.SetFirstSideDish(firstSideDish, price);
         }
 
-        public override void SetSecondSideDish(BurgerSecondSideDishOption secondSideDish = BurgerSecondSideDishOption.Salad)
+        public void SetSecondSideDish(BurgerSecondSideDishOption secondSideDish = BurgerSecondSideDishOption.Salad)
         {
             if (!MealItemPrices.TryGetValue(secondSideDish, out double price))
             {
@@ -41,22 +67,7 @@
                 price = MealItemPrices.GetValueOrDefault(secondSideDish, 8);
             }
 
-            meal.SecondSideDish = new MealItem(secondSideDish.ToString(), price);
+            _burgerMeal.SetSecondSideDish(secondSideDish, price);
         }
-    }
-
-    enum BurgerMainCourseOption
-    {
-        Standard
-    }
-
-    enum BurgerFirstSideDishOption
-    {
-        Fries
-    }
-
-    enum BurgerSecondSideDishOption
-    {
-        Salad
     }
 }

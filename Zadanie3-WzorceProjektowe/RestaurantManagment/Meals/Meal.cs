@@ -2,11 +2,11 @@ using System.Text;
 
 namespace RestaurantManagment.Meals
 {
-    class Meal
+    abstract class Meal
     {
-        public MealItem? MainCourse { get; set; }
-        public MealItem? FirstSideDish { get; set; }
-        public MealItem? SecondSideDish { get; set; }
+        public MealItem? MainCourse { get; protected set; }
+        public MealItem? FirstSideDish { get; protected set; }
+        public MealItem? SecondSideDish { get; protected set; }
 
         public double GetTotalCost()
         {

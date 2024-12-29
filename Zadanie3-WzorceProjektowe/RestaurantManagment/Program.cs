@@ -59,24 +59,27 @@ namespace RestaurantManagment
         private static IOrder[] PrepareOrders()
         {
             MealDirector director = new();
+            BurgerMealBuilder burgerMealBuilder = new();
+            StandardMealBuilder standardMealBuilder = new();
 
             List<Meal> meals1 = [
-                    director.CreateDefaultStandardMeal(),
-                    director.CreateDefaultBurgerMeal()
+                    director.CreateDefaultMeal(standardMealBuilder),
+                    director.CreateDefaultMeal(burgerMealBuilder)
                 ];
 
             List<Meal> meals2 = [
-                    director.CreateDefaultStandardMeal(),
-                    director.CreateDefaultBurgerMeal()
+                    director.CreateCustomMeal(burgerMealBuilder, BurgerMainCourseOption.Standard)
                 ];
 
             List<Meal> meals3 = [
-                    director.CreateDefaultStandardMeal(),
-                    director.CreateDefaultBurgerMeal()
+                    director.CreateDefaultMeal(standardMealBuilder),
+                    director.CreateDefaultMeal(burgerMealBuilder)
                 ];
             List<Meal> meals4 = [
-                    director.CreateDefaultStandardMeal(),
-                    director.CreateDefaultBurgerMeal()
+                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, StandardFirstSideDishOption.Potatoes, StandardSecondSideDishOption.Salad),
+                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, StandardFirstSideDishOption.Potatoes, StandardSecondSideDishOption.Salad),
+                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, null, StandardSecondSideDishOption.Salad)
+
                 ];
 
             DeliveryAddress address1 = new("Warszawa", 10);

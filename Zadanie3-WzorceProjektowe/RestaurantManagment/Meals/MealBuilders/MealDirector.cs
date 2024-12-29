@@ -2,77 +2,31 @@
 {
     class MealDirector
     {
-        private readonly StandardMealBuilder _standardMealbuilder;
-        private readonly BurgerMealBuilder _burgerMealBuilder;
-
-        public MealDirector()
+        public Meal CreateDefaultMeal<T, U, W>(IMealBuilder<T, U, W> standardMealBuilder)
         {
-            _standardMealbuilder = new StandardMealBuilder();
-            _burgerMealBuilder = new BurgerMealBuilder();
-        }
-        // TODO - builder jako argument metody / konstruktora
-        public Meal CreateDefaultStandardMeal()
-        {
-            _standardMealbuilder.Reset();
-            _standardMealbuilder.SetMainCourse(StandardMainCourseOption.Porkchop);
-            _standardMealbuilder.SetFirstSideDish(StandardFirstSideDishOption.Potatoes);
-            _standardMealbuilder.SetSecondSideDish(StandardSecondSideDishOption.Salad);
+            standardMealBuilder.Reset();
+            standardMealBuilder.SetDefaultMeal();
 
-            return _standardMealbuilder.Build();
+            return standardMealBuilder.Build();
         }
 
-        public Meal CreateCustomStandardMeal(
-            StandardMainCourseOption mainCourse,
-            StandardFirstSideDishOption? firstSideDish,
-            StandardSecondSideDishOption? secondSideDish
-        )
+        public Meal CreateCustomMeal<T, U, W>(IMealBuilder<T, U, W> mealBuilder, T mainCourse, U? firstSideDish = null, W? secondSideDish = null) where U : struct where W : struct
         {
-            _standardMealbuilder.Reset();
-            _standardMealbuilder.SetMainCourse(mainCourse);
+            mealBuilder.Reset();
+            mealBuilder.SetMainCourse(mainCourse);
 
             if (firstSideDish != null)
             {
-                _standardMealbuilder.SetFirstSideDish(firstSideDish.Value);
+                mealBuilder.SetFirstSideDish(firstSideDish.Value);
             }
 
             if (secondSideDish != null)
             {
-                _standardMealbuilder.SetSecondSideDish(secondSideDish.Value);
+                mealBuilder.SetSecondSideDish(secondSideDish.Value);
             }
 
-            return _standardMealbuilder.Build();
-        }
-
-        public Meal CreateDefaultBurgerMeal()
-        {
-            _burgerMealBuilder.Reset();
-            _burgerMealBuilder.SetMainCourse(BurgerMainCourseOption.Standard);
-            _burgerMealBuilder.SetFirstSideDish(BurgerFirstSideDishOption.Fries);
-            _burgerMealBuilder.SetSecondSideDish(BurgerSecondSideDishOption.Salad);
-
-            return _burgerMealBuilder.Build();
-        }
-
-        public Meal CreateCustomBurgerMeal(
-            BurgerMainCourseOption mainCourse,
-            BurgerFirstSideDishOption? firstSideDish,
-            BurgerSecondSideDishOption? secondSideDish
-        )
-        {
-            _burgerMealBuilder.Reset();
-            _burgerMealBuilder.SetMainCourse(mainCourse);
-
-            if (firstSideDish != null)
-            {
-                _burgerMealBuilder.SetFirstSideDish(firstSideDish.Value);
-            }
-
-            if (secondSideDish != null)
-            {
-                _burgerMealBuilder.SetSecondSideDish(secondSideDish.Value);
-            }
-
-            return _burgerMealBuilder.Build();
+            return mealBuilder
+                .Build();
         }
     }
 }
