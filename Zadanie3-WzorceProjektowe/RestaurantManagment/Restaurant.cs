@@ -92,6 +92,11 @@ namespace RestaurantManagment
             return _deliverymans.FirstOrDefault(deliveryman => !deliveryman.IsBusy);
         }
 
+        public List<IOrder> GetCompletedOrders()
+        {
+            return _completedOrders;
+        }
+
         public void StartWorking()
         {
             List<Task> tasks = [];

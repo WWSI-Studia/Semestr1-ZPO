@@ -1,11 +1,11 @@
-﻿using RestaurantManagment;
+﻿using RestaurantManagment.FileSavingStrategies;
 using RestaurantManagment.Meals;
 using RestaurantManagment.Meals.MealBuilders;
 using RestaurantManagment.Orders;
 using RestaurantManagment.Orders.OrderDecorator;
 using RestaurantManagment.Staff;
 
-namespace OrderProcessing
+namespace RestaurantManagment
 {
     class Program
     {
@@ -108,14 +108,17 @@ namespace OrderProcessing
         {
 
             Console.WriteLine("-------------CREATING_EMPLOYEES---------------------");
+
             Cook[] cooks = PrepareCooks();
             Waiter[] waiters = PrepareWaiters();
             Deliveryman[] deliverymans = PrepareDeliverymans();
 
-            Console.WriteLine("-------------CREATING_ORDERS------------------------");
+            Console.WriteLine("\n-------------CREATING_ORDERS------------------------");
+
             IOrder[] orders = PrepareOrders();
 
             Console.WriteLine("-------------CREATING_RESTAURANT--------------------");
+
             Restaurant restaurant = Restaurant.GetInstance();
 
             foreach (var cook in cooks)
@@ -138,11 +141,20 @@ namespace OrderProcessing
                 restaurant.AddOrder(order);
             }
 
-            Console.WriteLine("-------------PROCESSING_ORDERS----------------------");
+            Console.WriteLine("\n-------------PROCESSING_ORDERS----------------------");
             restaurant.StartWorking();
 
-            Console.WriteLine("-------------LISTING_COMPLETED_ORDERS---------------");
-            // TODO
+            Console.WriteLine("\n-------------SAVING_COMPLETED_ORDERS----------------");
+
+            OrderHistorySaver orderHistorySaver = new(new CsvFileSavingStrategy());
+
+            orderHistorySaver.SaveOrders(restaurant.GetCompletedOrders(), "orders.csv");
+            Console.WriteLine("Completed orders saved in csv file");
+
+            orderHistorySaver.SetStrategy(new TxtFileSavingStrategy());
+
+            orderHistorySaver.SaveOrders(restaurant.GetCompletedOrders(), "orders.txt");
+            Console.WriteLine("Completed orders saved in txt file");
         }
     }
 }
