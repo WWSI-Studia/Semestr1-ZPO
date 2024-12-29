@@ -7,7 +7,7 @@ namespace RestaurantManagment.OrderHandlers
     {
         public override async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {
-            if (order.GetOrderStatus() == OrderStatus.New)
+            if (order.Status == OrderStatus.New)
             {
                 Waiter? waiter;
                 // Zapewniamy, żeby pracownik został zaznaczony jako zajęty i został przypisany tylko do 1 zadania.

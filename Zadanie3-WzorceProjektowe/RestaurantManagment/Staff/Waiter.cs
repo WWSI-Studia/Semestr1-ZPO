@@ -7,7 +7,7 @@ namespace RestaurantManagment.Staff
         public override async Task<IOrder> ProcessOrderAsync(IOrder order)
         {
             // W zależności czy obsługuje nowe zamówienie, czy przygotowane przez kucharza.
-            if (order.GetOrderStatus() == OrderStatus.New)
+            if (order.Status == OrderStatus.New)
             {
                 Console.WriteLine($"Waiter {_name} passes order to the kitchen: " + order.Name);
 

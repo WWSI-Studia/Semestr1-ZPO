@@ -12,7 +12,7 @@ namespace RestaurantManagment
         private readonly List<Deliveryman> _deliverymans = [];
         private readonly Queue<IOrder> _orders = [];
         private readonly List<IOrder> _completedOrders = [];
-        private readonly OrderHandler _orderHandler;
+        private readonly IOrderHandler _orderHandler;
 
         private Restaurant(IOrderHandler? externalOrderHandler = null)
         {
@@ -65,7 +65,7 @@ namespace RestaurantManagment
 
         public void AddOrder(IOrder order)
         {
-            if (order.GetOrderStatus() == OrderStatus.Completed)
+            if (order.Status == OrderStatus.Completed)
             {
                 Console.WriteLine($"Order {order.Name} is completed!");
                 _completedOrders.Add(order);

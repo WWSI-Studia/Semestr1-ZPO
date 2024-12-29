@@ -7,7 +7,7 @@ namespace RestaurantManagment.OrderHandlers
     {
         public override async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {
-            if (order.GetOrderStatus() == OrderStatus.In_Delivery && order.IsDelivery)
+            if (order.Status == OrderStatus.In_Delivery && order.IsDelivery)
             {
                 Deliveryman? deliveryman;
                 // Zapewniamy, ¿eby pracownik zosta³ zaznaczony jako zajêty i zosta³ przypisany tylko do 1 zadania.
@@ -25,7 +25,7 @@ namespace RestaurantManagment.OrderHandlers
                     deliveryman.MarkAsNotBusy();
                 }
             }
-            else if (order.GetOrderStatus() == OrderStatus.In_Delivery)
+            else if (order.Status == OrderStatus.In_Delivery)
             {
                 order.SetOrderStatus(OrderStatus.Completed);
             }

@@ -7,16 +7,16 @@ namespace RestaurantManagment.Orders
     {
         private readonly List<Meal> _meals;
         private double _deliveryCost;
-        private OrderStatus _status;
         public string Name { get; }
+        public OrderStatus Status { get; private set; }
         public bool IsDelivery { get; }
         public DeliveryAddress? DeliveryAddress { get; }
 
         public Order(string name, List<Meal> meals, DeliveryAddress? deliveryAddress = null)
         {
             Name = name;
+            Status = OrderStatus.New;
             _meals = meals;
-            _status = OrderStatus.New;
 
             if (deliveryAddress != null)
             {
@@ -38,12 +38,7 @@ namespace RestaurantManagment.Orders
 
         public void SetOrderStatus(OrderStatus orderStatus)
         {
-            _status = orderStatus;
-        }
-
-        public OrderStatus GetOrderStatus()
-        {
-            return _status;
+            Status = orderStatus;
         }
 
         public void SetDeliveryCost(double cost)

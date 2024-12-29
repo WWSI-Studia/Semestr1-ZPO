@@ -2,14 +2,9 @@
 
 namespace RestaurantManagment.FileSavingStrategies
 {
-    class OrderHistorySaver
+    class OrderHistorySaver(IFileSavingStrategy fileSavingStrategy)
     {
-        private IFileSavingStrategy _fileSavingStrategy;
-
-        public OrderHistorySaver(IFileSavingStrategy fileSavingStrategy)
-        {
-            _fileSavingStrategy = fileSavingStrategy;
-        }
+        private IFileSavingStrategy _fileSavingStrategy = fileSavingStrategy;
 
         public void SetStrategy(IFileSavingStrategy fileSavingStrategy)
         {

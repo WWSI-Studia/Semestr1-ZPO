@@ -6,6 +6,7 @@ namespace RestaurantManagment.Orders.OrderDecorator
     {
         private readonly IOrder _order = order;
         public string Name { get => _order.Name; }
+        public OrderStatus Status { get => _order.Status; }
         public bool IsDelivery { get => _order.IsDelivery; }
 
         public void AddMeal(Meal meal)
@@ -20,11 +21,6 @@ namespace RestaurantManagment.Orders.OrderDecorator
         public void SetOrderStatus(OrderStatus orderStatus)
         {
             _order.SetOrderStatus(orderStatus);
-        }
-
-        public OrderStatus GetOrderStatus()
-        {
-            return _order.GetOrderStatus();
         }
 
         public virtual void SetDeliveryCost(double cost)
