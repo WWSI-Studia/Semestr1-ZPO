@@ -6,10 +6,14 @@
         private readonly Dictionary<Enum, double> MealItemPrices = new()
         {
             { StandardMainCourseOption.Porkchop, 18 },
+            { StandardMainCourseOption.Chicken, 16 },
+            { StandardMainCourseOption.Beef_Welington, 40 },
 
             { StandardFirstSideDishOption.Potatoes, 5.99 },
+            { StandardFirstSideDishOption.Baked_Potatoes, 8 },
 
             { StandardSecondSideDishOption.Salad, 5.50 },
+            { StandardSecondSideDishOption.Asparagus, 6.50 },
         };
 
         public void Reset()
@@ -17,7 +21,7 @@
             _standardMeal = new();
         }
 
-        public Meal Build()
+        public StandardMeal GetMeal()
         {
             return _standardMeal;
         }

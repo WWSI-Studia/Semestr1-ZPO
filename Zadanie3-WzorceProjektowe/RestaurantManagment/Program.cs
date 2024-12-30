@@ -58,37 +58,46 @@ namespace RestaurantManagment
 
         private static IOrder[] PrepareOrders()
         {
+            Meal meal1, meal2, meal3;
             MealDirector director = new();
             BurgerMealBuilder burgerMealBuilder = new();
             StandardMealBuilder standardMealBuilder = new();
 
-            List<Meal> meals1 = [
-                    director.CreateDefaultMeal(standardMealBuilder),
-                    director.CreateDefaultMeal(burgerMealBuilder)
-                ];
+            director.CreateDefaultMeal(standardMealBuilder);
+            meal1 = standardMealBuilder.GetMeal();
+            director.CreateDefaultMeal(burgerMealBuilder);
+            meal2 = burgerMealBuilder.GetMeal();
 
-            List<Meal> meals2 = [
-                    director.CreateCustomMeal(burgerMealBuilder, BurgerMainCourseOption.Standard)
-                ];
+            List<Meal> meals1 = [meal1, meal2];
 
-            List<Meal> meals3 = [
-                    director.CreateDefaultMeal(standardMealBuilder),
-                    director.CreateDefaultMeal(burgerMealBuilder)
-                ];
-            List<Meal> meals4 = [
-                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, StandardFirstSideDishOption.Potatoes, StandardSecondSideDishOption.Salad),
-                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, StandardFirstSideDishOption.Potatoes, StandardSecondSideDishOption.Salad),
-                    director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, null, StandardSecondSideDishOption.Salad)
+            director.CreateCustomMeal(burgerMealBuilder, BurgerMainCourseOption.Standard);
+            meal1 = burgerMealBuilder.GetMeal();
 
-                ];
+            List<Meal> meals2 = [meal1];
 
-            DeliveryAddress address1 = new("Warszawa", 10);
-            DeliveryAddress address2 = new("Wrocław", 7.77);
+            director.CreateCustomMeal(burgerMealBuilder, BurgerMainCourseOption.Spicy, BurgerFirstSideDishOption.Fries);
+            meal1 = burgerMealBuilder.GetMeal();
+            director.CreateCustomMeal(burgerMealBuilder, BurgerMainCourseOption.Standard);
+            meal2 = burgerMealBuilder.GetMeal();
+
+            List<Meal> meals3 = [meal1, meal2];
+
+            director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, StandardFirstSideDishOption.Potatoes, StandardSecondSideDishOption.Salad);
+            meal1 = standardMealBuilder.GetMeal();
+            director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Beef_Welington, StandardFirstSideDishOption.Baked_Potatoes, StandardSecondSideDishOption.Salad);
+            meal2 = standardMealBuilder.GetMeal();
+            director.CreateCustomMeal(standardMealBuilder, StandardMainCourseOption.Porkchop, null, StandardSecondSideDishOption.Asparagus);
+            meal3 = standardMealBuilder.GetMeal();
+
+            List<Meal> meals4 = [meal1, meal2, meal3];
+
+            DeliveryAddress address1 = new(10, "Warszawa", "00-169", "Jozefa Lewartowskiego", "17");
+            DeliveryAddress address2 = new(7.77, "Warszawa", "00-116", "Aleja Jana Pawła II", "18/33");
 
             IOrder order1 = new Order("First", meals1);
             IOrder order2 = new FreeDeliveryDiscountOrderDecorator(new Order("Second", meals2, address1));
             IOrder order3 = new CashAmountDiscountOrderDecorator(new Order("Third", meals3), 10);
-            IOrder order4 = new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Fourth", meals4, address2), 50), 10);
+            IOrder order4 = new CashAmountTipOrderDecorator(new PercentageDiscountOrderDecorator(new Order("Fourth", meals4, address2), 30), 10);
 
             IOrder[] orders = [
                     order1,

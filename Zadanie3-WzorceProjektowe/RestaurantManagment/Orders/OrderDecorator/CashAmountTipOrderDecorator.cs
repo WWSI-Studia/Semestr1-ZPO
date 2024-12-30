@@ -14,7 +14,7 @@
                 cost = 0;
             }
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         public override string ToString()

@@ -2,9 +2,9 @@ namespace RestaurantManagment.Meals
 {
     class BurgerMeal : Meal
     {
-        public void SetMainCourse(BurgerMainCourseOption mainCourseOption, double price)
+        public void SetMainCourse(BurgerMainCourseOption mainCourse, double price)
         {
-            MainCourse = new MealItem("Burger " + mainCourseOption.ToString(), price);
+            MainCourse = new MealItem("Burger " + mainCourse.ToString(), price);
         }
 
         public void SetFirstSideDish(BurgerFirstSideDishOption firstSideDish, double price)
@@ -20,16 +20,20 @@ namespace RestaurantManagment.Meals
 
     enum BurgerMainCourseOption
     {
-        Standard
+        Standard,
+        Spicy
     }
 
     enum BurgerFirstSideDishOption
     {
-        Fries
+        Fries,
+        Curly_Fries,
+        Corn
     }
 
     enum BurgerSecondSideDishOption
     {
-        Salad
+        Salad,
+        Coleslaw
     }
 }

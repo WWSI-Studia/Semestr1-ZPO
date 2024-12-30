@@ -8,6 +8,7 @@ namespace RestaurantManagment.Orders.OrderDecorator
         public string Name { get => _order.Name; }
         public OrderStatus Status { get => _order.Status; }
         public bool IsDelivery { get => _order.IsDelivery; }
+        public DeliveryAddress? DeliveryAddress { get => _order.DeliveryAddress; }
 
         public void AddMeal(Meal meal)
         {

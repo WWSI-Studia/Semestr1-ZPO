@@ -10,7 +10,7 @@
 
             cost += _amount;
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         public override string ToString()

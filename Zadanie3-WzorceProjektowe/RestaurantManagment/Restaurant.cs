@@ -14,7 +14,7 @@ namespace RestaurantManagment
         private readonly List<IOrder> _completedOrders = [];
         private readonly IOrderHandler _orderHandler;
 
-        private Restaurant(IOrderHandler? externalOrderHandler = null)
+        private Restaurant()
         {
             NewOrderHandler newOrderHandler = new();
             InKitchenOrderHandler inKitchenOrderHandler = new();
@@ -24,20 +24,19 @@ namespace RestaurantManagment
             newOrderHandler.SetNext(inKitchenOrderHandler);
             inKitchenOrderHandler.SetNext(preparedOrderHandler);
             preparedOrderHandler.SetNext(inDeliveryOrderHandler);
-            inDeliveryOrderHandler.SetNext(externalOrderHandler);
 
             _orderHandler = newOrderHandler;
             _restaurant = this;
         }
 
-        public static Restaurant GetInstance(IOrderHandler? externalOrderHandler = null)
+        public static Restaurant GetInstance()
         {
             if (_restaurant != null)
             {
                 return _restaurant;
             }
 
-            return new Restaurant(externalOrderHandler);
+            return new Restaurant();
         }
 
         public void AddEmployee(Cook cook)
@@ -72,7 +71,6 @@ namespace RestaurantManagment
             }
             else
             {
-                // TODO odrzucać zamówienia z dostawą jeżeli nie ma dostawcy
                 _orders.Enqueue(order);
             }
         }

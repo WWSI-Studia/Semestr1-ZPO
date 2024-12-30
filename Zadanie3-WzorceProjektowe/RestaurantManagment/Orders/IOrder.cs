@@ -5,8 +5,9 @@ namespace RestaurantManagment.Orders
     interface IOrder
     {
         public string Name { get; }
-        public bool IsDelivery { get; }
         public OrderStatus Status { get; }
+        public bool IsDelivery { get; }
+        public DeliveryAddress? DeliveryAddress { get; }
         public void AddMeal(Meal meal);
         public List<Meal> GetMeals();
         public void SetOrderStatus(OrderStatus orderStatus);

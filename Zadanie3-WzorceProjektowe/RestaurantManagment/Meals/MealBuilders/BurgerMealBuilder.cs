@@ -6,10 +6,14 @@
         private readonly Dictionary<Enum, double> MealItemPrices = new()
         {
             { BurgerMainCourseOption.Standard, 16.99 },
+            { BurgerMainCourseOption.Spicy, 18.99 },
 
             { BurgerFirstSideDishOption.Fries, 7.99 },
+            { BurgerFirstSideDishOption.Curly_Fries, 9.90 },
+            { BurgerFirstSideDishOption.Corn, 6.99 },
 
             { BurgerSecondSideDishOption.Salad, 5.50 },
+            { BurgerSecondSideDishOption.Coleslaw, 5.50 }
         };
 
         public void Reset()
@@ -17,7 +21,7 @@
             _burgerMeal = new();
         }
 
-        public Meal Build()
+        public BurgerMeal GetMeal()
         {
             return _burgerMeal;
         }

@@ -2,15 +2,13 @@
 {
     class MealDirector
     {
-        public Meal CreateDefaultMeal<T, U, W>(IMealBuilder<T, U, W> standardMealBuilder)
+        public void CreateDefaultMeal<T, U, W>(IMealBuilder<T, U, W> standardMealBuilder)
         {
             standardMealBuilder.Reset();
             standardMealBuilder.SetDefaultMeal();
-
-            return standardMealBuilder.Build();
         }
 
-        public Meal CreateCustomMeal<T, U, W>(IMealBuilder<T, U, W> mealBuilder, T mainCourse, U? firstSideDish = null, W? secondSideDish = null) where U : struct where W : struct
+        public void CreateCustomMeal<T, U, W>(IMealBuilder<T, U, W> mealBuilder, T mainCourse, U? firstSideDish = null, W? secondSideDish = null) where U : struct where W : struct
         {
             mealBuilder.Reset();
             mealBuilder.SetMainCourse(mainCourse);
@@ -24,9 +22,6 @@
             {
                 mealBuilder.SetSecondSideDish(secondSideDish.Value);
             }
-
-            return mealBuilder
-                .Build();
         }
     }
 }
