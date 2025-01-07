@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Orders.OrderDecorator
 {
-    class FreeDeliveryDiscountOrderDecorator : OrderDecorator
+    public class FreeDeliveryDiscountOrderDecorator : OrderDecorator
     {
         public FreeDeliveryDiscountOrderDecorator(IOrder order) : base(order)
         {

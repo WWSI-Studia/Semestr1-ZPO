@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Orders
 {
-    enum OrderStatus
+    public enum OrderStatus
     {
         New,
         In_Kitchen,

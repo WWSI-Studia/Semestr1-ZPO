@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RestaurantManagment.Orders
 {
-    class Order : IOrder
+    public class Order : IOrder
     {
         private readonly List<Meal> _meals;
         private double _deliveryCost;

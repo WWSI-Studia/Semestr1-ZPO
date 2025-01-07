@@ -3,7 +3,7 @@ using RestaurantManagment.Staff;
 
 namespace RestaurantManagment.OrderHandlers
 {
-    class PreparedOrderHandler : OrderHandler
+    public class PreparedOrderHandler : OrderHandler
     {
         public override async Task<IOrder?> HandleAsync(IOrder order, Restaurant restaurant)
         {

@@ -4,7 +4,7 @@ using RestaurantManagment.Staff;
 
 namespace RestaurantManagment
 {
-    class Restaurant
+    public class Restaurant
     {
         private static Restaurant? _restaurant;
         private readonly List<Cook> _cooks = [];

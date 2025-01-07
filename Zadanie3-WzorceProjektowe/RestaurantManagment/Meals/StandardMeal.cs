@@ -1,6 +1,6 @@
 namespace RestaurantManagment.Meals
 {
-    class StandardMeal : Meal
+    public class StandardMeal : Meal
     {
         public void SetMainCourse(StandardMainCourseOption mainCourse, double price)
         {
@@ -18,20 +18,20 @@ namespace RestaurantManagment.Meals
         }
     }
 
-    enum StandardMainCourseOption
+    public enum StandardMainCourseOption
     {
         Porkchop,
         Chicken,
         Beef_Welington
     }
 
-    enum StandardFirstSideDishOption
+    public enum StandardFirstSideDishOption
     {
         Potatoes,
         Baked_Potatoes,
     }
 
-    enum StandardSecondSideDishOption
+    public enum StandardSecondSideDishOption
     {
         Salad,
         Asparagus

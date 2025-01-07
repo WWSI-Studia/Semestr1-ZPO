@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Orders.OrderDecorator
 {
-    class PercentageDiscountOrderDecorator : OrderDecorator
+    public class PercentageDiscountOrderDecorator : OrderDecorator
     {
         private readonly double _percent;
 

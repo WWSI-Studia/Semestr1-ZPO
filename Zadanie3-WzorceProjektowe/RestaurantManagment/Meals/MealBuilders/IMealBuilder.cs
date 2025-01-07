@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    interface IMealBuilder<T, U, W>
+    public interface IMealBuilder<T, U, W>
     {
         public void SetDefaultMeal();
         public void SetMainCourse(T mainCourse);

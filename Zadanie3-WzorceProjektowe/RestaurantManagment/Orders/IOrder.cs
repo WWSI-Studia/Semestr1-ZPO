@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.Orders
 {
-    interface IOrder
+    public interface IOrder
     {
         public string Name { get; }
         public OrderStatus Status { get; }

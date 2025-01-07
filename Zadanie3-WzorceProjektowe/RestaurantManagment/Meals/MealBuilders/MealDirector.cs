@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    class MealDirector
+    public class MealDirector
     {
         public void CreateDefaultMeal<T, U, W>(IMealBuilder<T, U, W> standardMealBuilder)
         {

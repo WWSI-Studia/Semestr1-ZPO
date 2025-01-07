@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.OrderHandlers
 {
-    abstract class OrderHandler : IOrderHandler
+    public abstract class OrderHandler : IOrderHandler
     {
         protected readonly object _lock = new();
         private IOrderHandler? _nextHandler;

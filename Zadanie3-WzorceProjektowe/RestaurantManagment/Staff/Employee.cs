@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.Staff
 {
-    abstract class Employee(string name) : IEmployee
+    public abstract class Employee(string name) : IEmployee
     {
         protected readonly string _name = name;
         public bool IsBusy { get; private set; }

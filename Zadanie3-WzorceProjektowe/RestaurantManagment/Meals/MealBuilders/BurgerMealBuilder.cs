@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    class BurgerMealBuilder : IMealBuilder<BurgerMainCourseOption, BurgerFirstSideDishOption, BurgerSecondSideDishOption>
+    public class BurgerMealBuilder : IMealBuilder<BurgerMainCourseOption, BurgerFirstSideDishOption, BurgerSecondSideDishOption>
     {
         private BurgerMeal _burgerMeal = new();
         private readonly Dictionary<Enum, double> MealItemPrices = new()

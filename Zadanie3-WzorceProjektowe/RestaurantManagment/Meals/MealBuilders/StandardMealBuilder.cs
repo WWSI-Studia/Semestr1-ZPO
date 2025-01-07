@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Meals.MealBuilders
 {
-    class StandardMealBuilder : IMealBuilder<StandardMainCourseOption, StandardFirstSideDishOption, StandardSecondSideDishOption>
+    public class StandardMealBuilder : IMealBuilder<StandardMainCourseOption, StandardFirstSideDishOption, StandardSecondSideDishOption>
     {
         private StandardMeal _standardMeal = new();
         private readonly Dictionary<Enum, double> MealItemPrices = new()

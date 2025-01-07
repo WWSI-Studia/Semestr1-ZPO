@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Orders.OrderDecorator
 {
-    class CashAmountDiscountOrderDecorator(IOrder order, double amount) : OrderDecorator(order)
+    public class CashAmountDiscountOrderDecorator(IOrder order, double amount) : OrderDecorator(order)
     {
         private readonly double _amount = amount;
 

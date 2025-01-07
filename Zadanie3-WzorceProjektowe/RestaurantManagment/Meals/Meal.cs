@@ -2,7 +2,7 @@ using System.Text;
 
 namespace RestaurantManagment.Meals
 {
-    abstract class Meal
+    public abstract class Meal
     {
         public MealItem? MainCourse { get; protected set; }
         public MealItem? FirstSideDish { get; protected set; }

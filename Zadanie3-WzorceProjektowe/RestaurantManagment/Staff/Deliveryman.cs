@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.Staff
 {
-    class Deliveryman(string name) : Employee(name)
+    public class Deliveryman(string name) : Employee(name)
     {
         public override async Task<IOrder> ProcessOrderAsync(IOrder order)
         {

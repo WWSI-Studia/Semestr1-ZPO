@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.FileSavingStrategies
 {
-    interface IFileSavingStrategy
+    public interface IFileSavingStrategy
     {
         void Save(List<IOrder> orders, string path);
     }

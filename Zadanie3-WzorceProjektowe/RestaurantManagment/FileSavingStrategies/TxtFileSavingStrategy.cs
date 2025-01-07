@@ -2,7 +2,7 @@
 
 namespace RestaurantManagment.FileSavingStrategies
 {
-    class TxtFileSavingStrategy : IFileSavingStrategy
+    public class TxtFileSavingStrategy : IFileSavingStrategy
     {
         public void Save(List<IOrder> orders, string path)
         {
