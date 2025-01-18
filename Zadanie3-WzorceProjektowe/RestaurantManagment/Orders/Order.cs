@@ -22,7 +22,7 @@ namespace RestaurantManagment.Orders
             {
                 IsDelivery = true;
                 DeliveryAddress = deliveryAddress;
-                _deliveryCost = 10;
+                _deliveryCost = deliveryAddress.Price;
             }
         }
 
@@ -51,7 +51,7 @@ namespace RestaurantManagment.Orders
             return IsDelivery ? _deliveryCost : 0;
         }
 
-        public double GetTotalCost()
+        public virtual double GetTotalCost()
         {
             double cost = GetDeliveryCost();
 

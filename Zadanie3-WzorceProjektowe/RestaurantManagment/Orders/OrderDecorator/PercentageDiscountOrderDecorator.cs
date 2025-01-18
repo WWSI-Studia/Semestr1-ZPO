@@ -6,6 +6,11 @@
 
         public PercentageDiscountOrderDecorator(IOrder order, double percent) : base(order)
         {
+            if (double.IsInfinity(percent) || percent == double.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(percent));
+            }
+
             if (percent < 1)
             {
                 _percent = 1;

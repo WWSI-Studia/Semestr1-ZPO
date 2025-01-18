@@ -6,6 +6,11 @@
 
         public PercentageTipOrderDecorator(IOrder order, double percent) : base(order)
         {
+            if (double.IsInfinity(percent) || percent == double.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(percent));
+            }
+
             if (percent < 5)
             {
                 _percent = 5;

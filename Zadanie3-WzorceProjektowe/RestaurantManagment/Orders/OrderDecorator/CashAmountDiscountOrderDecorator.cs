@@ -1,6 +1,6 @@
 ﻿namespace RestaurantManagment.Orders.OrderDecorator
 {
-    class CashAmountTipOrderDecorator(IOrder order, double amount) : OrderDecorator(order)
+    public class CashAmountDiscountOrderDecorator(IOrder order, double amount) : OrderDecorator(order)
     {
         private readonly double _amount = amount;
 
@@ -8,14 +8,18 @@
         {
             double cost = base.GetTotalCost();
 
-            cost += _amount;
+            cost -= _amount;
+            if (cost < 0)
+            {
+                cost = 0;
+            }
 
             return Math.Round(cost, 2);
         }
 
         public override string ToString()
         {
-            return base.ToString() + $"A tip was added for the amount of {_amount}PLN - cost after tip: {GetTotalCost()}\n";
+            return base.ToString() + $"A discount was used for the amount of {_amount}PLN - cost after discount: {GetTotalCost()}\n";
         }
     }
 }

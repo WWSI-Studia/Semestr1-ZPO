@@ -62,7 +62,7 @@ namespace RestaurantManagment
             Console.WriteLine(employee.ToString() + " came to work.");
         }
 
-        public void AddOrder(IOrder order)
+        public virtual void AddOrder(IOrder order)
         {
             if (order.Status == OrderStatus.Completed)
             {
@@ -80,7 +80,7 @@ namespace RestaurantManagment
             return _cooks.FirstOrDefault(cook => !cook.IsBusy);
         }
 
-        public Waiter? GetAvailableWaiter()
+        public virtual Waiter? GetAvailableWaiter()
         {
             return _waiters.FirstOrDefault(waiter => !waiter.IsBusy);
         }

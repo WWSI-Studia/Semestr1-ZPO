@@ -8,7 +8,7 @@ namespace RestaurantManagment.Meals
         public MealItem? FirstSideDish { get; protected set; }
         public MealItem? SecondSideDish { get; protected set; }
 
-        public double GetTotalCost()
+        public virtual double GetTotalCost()
         {
             double totalCost = 0;
 
